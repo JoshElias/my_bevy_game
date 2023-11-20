@@ -1,10 +1,16 @@
 use bevy::prelude::*;
 
 fn main() {
-    App::new()
-        .add_systems(Startup, add_people)
-        .add_systems(Update, (hello_world, greet_people))
-        .run();
+    App::new().add_plugins((DefaultPlugins, HelloPlugin)).run();
+}
+
+pub struct HelloPlugin;
+
+impl Plugin for HelloPlugin {
+    fn build(&self, app: &mut App) {
+        app.add_systems(Startup, add_people)
+            .add_systems(Update, (hello_world, greet_people));
+    }
 }
 
 #[derive(Component)]
